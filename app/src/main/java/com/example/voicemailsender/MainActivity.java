@@ -107,11 +107,13 @@ public class MainActivity extends AppCompatActivity {
     private void sendEmail() {
         if (emailID != null && messageBody != null) {
             Intent emailIntent = new Intent(Intent.ACTION_SEND);
-            emailIntent.setData(Uri.parse("mailto:"));
-//            emailIntent.setType("text/plain");
+//            emailIntent.setData(Uri.parse("mailto:"));
+            emailIntent.setType("message/rfc822");
             emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailID});
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, subjectBody);
             emailIntent.putExtra(Intent.EXTRA_TEXT, messageBody);
+
+            emailIntent.setPackage("com.google.android.gm");
 
             try {
                 startActivity(Intent.createChooser(emailIntent, "Send email..."));
