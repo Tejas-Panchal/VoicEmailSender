@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (step) {
                     case 0:
                         String spokenText = result.get(0);
-                        tvResult.setText(spokenText); // Display what the user said
+//                        tvResult.setText(spokenText); // Display what the user said
                         email = result.get(0)
                                 .toLowerCase()
                                 .replaceAll("\\s+", "") // removes all spaces (single or multiple)
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 1:
                         String spokenSubject = result.get(0);
-                        tvResult.setText(spokenSubject); // Display spoken subject
+//                        tvResult.setText(spokenSubject); // Display spoken subject
 
                         subject = result.get(0);
 
@@ -133,11 +133,12 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 2:
                         String spokenMessage = result.get(0);
-                        tvResult.setText(spokenMessage); // Display spoken message
+//                        tvResult.setText(spokenMessage); // Display spoken message
                         message = result.get(0);
                         Toast.makeText(this, "Message: " + message, Toast.LENGTH_SHORT).show();
                         break;
                 }
+                tvResult.setText(String.format("Email: %s\n\nSubject: %s\n\nMessage: \n%s", email, subject, message));
             }
         }
     }
