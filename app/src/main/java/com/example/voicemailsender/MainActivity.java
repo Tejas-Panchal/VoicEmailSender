@@ -12,9 +12,6 @@ import android.widget.Toast;
 import android.widget.TextView;
 
 
-
-
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -173,3 +170,6 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 }
+
+
+// Version 2.0

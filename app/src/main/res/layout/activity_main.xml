@@ -13,46 +13,50 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <!-- Non-editable box for spoken text -->
+
+        <!-- Horizontal button layout -->
+
         <TextView
             android:id="@+id/tvResult"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="157dp"
+            android:layout_marginBottom="24dp"
             android:background="@android:color/darker_gray"
-            android:textColor="@android:color/white"
-            android:padding="16dp"
-            android:textSize="18sp"
-            android:text="Your spoken input will appear here..."
             android:gravity="top|start"
-            android:layout_marginBottom="24dp" />
+            android:padding="16dp"
+            android:text="Your spoken input will appear here..."
+            android:textColor="#4E342E"
+            android:textSize="18sp" />
 
-        <!-- Horizontal button layout -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btnSpeak"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="79dp"
                 android:layout_weight="1"
                 android:text="Start Voice Input" />
 
             <Button
                 android:id="@+id/btnSendEmail"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_height="79dp"
                 android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:baselineAligned="false"
                 android:text="Send Email" />
         </LinearLayout>
 
     </LinearLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
