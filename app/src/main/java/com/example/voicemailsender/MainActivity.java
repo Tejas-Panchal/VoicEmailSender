@@ -1,117 +1,138 @@
 package com.example.voicemailsender;
 
-import static java.util.Collections.replaceAll;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int REQ_CODE_EMAIL = 100;
-    private static final int REQ_CODE_SUBJECT = 101;
-    private static final int REQ_CODE_MESSAGE = 102;
-
-    private TextView tvEmail, tvSubject, tvMessage;
-    private Button btnEmail, btnMessage, btnSubject, btnSendEmail;
-
-    private String emailID, subjectBody, messageBody;
+    private Button btnSpeak, btnSendEmail;
+    private int step = 0;
+    private String email = "", subject = "", message = "";
+    private TextToSpeech tts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tvEmail = findViewById(R.id.tvEmail);
-        tvSubject = findViewById(R.id.tvSubject);
-        tvMessage = findViewById(R.id.tvMessage);
-        btnEmail = findViewById(R.id.btnEmail);
-        btnSubject = findViewById(R.id.btnSubject);
-        btnMessage = findViewById(R.id.btnMessage);
+        btnSpeak = findViewById(R.id.btnSpeak);
         btnSendEmail = findViewById(R.id.btnSendEmail);
 
-        btnEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                promptSpeechInput(REQ_CODE_EMAIL);
+        // Initialize TextToSpeech
+        tts = new TextToSpeech(this, status -> {
+            if (status == TextToSpeech.SUCCESS) {
+                tts.setLanguage(Locale.US);
             }
         });
 
-        btnSubject.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                promptSpeechInput(REQ_CODE_SUBJECT);
-            }
+        btnSpeak.setOnClickListener(view -> {
+            step = 0;
+            promptAndSpeak();  // Speak and then listen
         });
 
-        btnMessage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                promptSpeechInput(REQ_CODE_MESSAGE);
-            }
-        });
-
-        btnSendEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnSendEmail.setOnClickListener(view -> {
+            if (!email.isEmpty() && !subject.isEmpty() && !message.isEmpty()) {
                 sendEmail();
+            } else {
+                Toast.makeText(this, "Please complete voice input first.", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void promptSpeechInput(int requestCode) {
+    private void promptAndSpeak() {
+        String prompt;
+        switch (step) {
+            case 0:
+                prompt = "To whom do you want to send email?";
+                break;
+            case 1:
+                prompt = "What is the subject of the email?";
+                break;
+            case 2:
+                prompt = "What message do you want to send?";
+                break;
+            default:
+                prompt = "";
+        }
+
+        tts.speak(prompt, TextToSpeech.QUEUE_FLUSH, null, null);
+
+        new Handler().postDelayed(this::startVoiceInput, 2000); // Delay before listening
+    }
+
+    private void startVoiceInput() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, requestCode == REQ_CODE_EMAIL ? "Speak the email ID" : "Speak the message");
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
+                step == 0 ? "Speak Email ID" :
+                        step == 1 ? "Speak Subject" :
+                                "Speak Message");
 
         try {
-            startActivityForResult(intent, requestCode);
-        } catch (ActivityNotFoundException a) {
-            Toast.makeText(getApplicationContext(), "Sorry! Your device doesn’t support speech input", Toast.LENGTH_SHORT).show();
+            startActivityForResult(intent, 100);
+        } catch (Exception e) {
+            Toast.makeText(this, "Speech recognition not supported.", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK && null != data) {
+
+        if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
             ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-            if (requestCode == REQ_CODE_EMAIL) {
-                emailID = result.get(0);
-                emailID = emailID.toLowerCase().replaceAll("\\s+", "");
-                tvEmail.setText(emailID);
-            } else if (requestCode == REQ_CODE_SUBJECT) {
-                subjectBody = result.get(0);
-                tvSubject.setText(subjectBody);
-            } else if (requestCode == REQ_CODE_MESSAGE) {
-                messageBody = result.get(0);
-                tvMessage.setText(messageBody);
+            if (result != null && !result.isEmpty()) {
+                switch (step) {
+                    case 0:
+                        email = result.get(0)
+                                .toLowerCase()
+                                .replaceAll("\\s+", "") // removes all spaces (single or multiple)
+                                .replace("at", "@")
+                                .replace("dot", ".");
+
+                        Toast.makeText(this, "Email: " + email, Toast.LENGTH_SHORT).show();
+                        step++;
+                        promptAndSpeak();
+                        break;
+                    case 1:
+                        subject = result.get(0);
+                        Toast.makeText(this, "Subject: " + subject, Toast.LENGTH_SHORT).show();
+                        step++;
+                        promptAndSpeak();
+                        break;
+                    case 2:
+                        message = result.get(0);
+                        Toast.makeText(this, "Message: " + message, Toast.LENGTH_SHORT).show();
+                        break;
+                }
             }
         }
     }
 
     private void sendEmail() {
-        if (emailID != null && messageBody != null) {
+        if (email != null && message != null) {
             Intent emailIntent = new Intent(Intent.ACTION_SEND);
             emailIntent.setData(Uri.parse("mailto:"));
-//            emailIntent.setType("text/plain");
-            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailID});
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, subjectBody);
-            emailIntent.putExtra(Intent.EXTRA_TEXT, messageBody);
+            emailIntent.setType("text/plain");
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{email});
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+            emailIntent.putExtra(Intent.EXTRA_TEXT, message);
+            emailIntent.setPackage("com.google.android.gm");
+//            emailIntent.setPackage("com.microsoft.office.outlook");
 
             try {
                 startActivity(Intent.createChooser(emailIntent, "Send email..."));
@@ -121,6 +142,15 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Please enter both email ID and message.", Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (tts != null) {
+            tts.stop();
+            tts.shutdown();
+        }
+        super.onDestroy();
     }
 }
-// Version 1.0.0.1
