@@ -9,6 +9,11 @@ import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import android.widget.TextView;
+
+
+
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,7 +22,11 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
+
     private Button btnSpeak, btnSendEmail;
+    private TextView tvResult;
+
+
     private int step = 0;
     private String email = "", subject = "", message = "";
     private TextToSpeech tts;
@@ -29,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
         btnSpeak = findViewById(R.id.btnSpeak);
         btnSendEmail = findViewById(R.id.btnSendEmail);
+        tvResult = findViewById(R.id.tvResult);
+
 
         // Initialize TextToSpeech
         tts = new TextToSpeech(this, status -> {
@@ -98,6 +109,8 @@ public class MainActivity extends AppCompatActivity {
             if (result != null && !result.isEmpty()) {
                 switch (step) {
                     case 0:
+                        String spokenText = result.get(0);
+                        tvResult.setText(spokenText); // Display what the user said
                         email = result.get(0)
                                 .toLowerCase()
                                 .replaceAll("\\s+", "") // removes all spaces (single or multiple)
@@ -109,12 +122,18 @@ public class MainActivity extends AppCompatActivity {
                         promptAndSpeak();
                         break;
                     case 1:
+                        String spokenSubject = result.get(0);
+                        tvResult.setText(spokenSubject); // Display spoken subject
+
                         subject = result.get(0);
+
                         Toast.makeText(this, "Subject: " + subject, Toast.LENGTH_SHORT).show();
                         step++;
                         promptAndSpeak();
                         break;
                     case 2:
+                        String spokenMessage = result.get(0);
+                        tvResult.setText(spokenMessage); // Display spoken message
                         message = result.get(0);
                         Toast.makeText(this, "Message: " + message, Toast.LENGTH_SHORT).show();
                         break;
