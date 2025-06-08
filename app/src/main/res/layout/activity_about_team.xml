@@ -1,230 +1,258 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
-    android:padding="0dp">
+    tools:context=".AboutTeamActivity">
 
+    <!-- Main Content -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:background="@drawable/bg">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <!-- Toolbar -->
+
+        <!-- Developer Grid -->
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#222222"
+            android:title="Our Development Team"
+            app:titleTextColor="@color/white"
+            android:titleTextColor="@android:color/white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:text="Our Development Team"
-            android:textColor="#F2F0F0"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="visible">
 
-        <androidx.gridlayout.widget.GridLayout
-            android:id="@+id/gridLayout"
-            android:layout_width="268dp"
-            android:layout_height="864dp"
-            android:gravity="center|center_horizontal"
-            app:alignmentMode="alignMargins"
-            app:columnCount="2"
-            app:rowCount="3"
-            app:useDefaultMargins="true">
-
-            <!-- Developer 1 - Tejas -->
-            <LinearLayout
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                app:layout_column="0"
-                app:layout_row="0">
+                android:layout_marginBottom="24dp"
+                android:text="Our Development Team"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="130dp"
-                    android:contentDescription="Tejas"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/tejas"
-                    app:shapeAppearanceOverlay="@style/CircleImageView" />
+            <androidx.gridlayout.widget.GridLayout
+                android:id="@+id/gridLayout"
+                android:layout_width="300dp"
+                android:layout_height="864dp"
+                android:gravity="center|center_horizontal"
+                app:alignmentMode="alignMargins"
+                app:columnCount="2"
+                app:rowCount="3"
+                app:useDefaultMargins="true">
 
-                <TextView
+                <!-- Developer 1 - Tejas -->
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:text="Tejas Panchal"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                     />
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    app:layout_column="0"
+                    app:layout_row="0">
 
-                <TextView
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="134dp"
+                        android:layout_height="130dp"
+                        android:contentDescription="Tejas"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/tejas"
+                        app:shapeAppearanceOverlay="@style/CircleImageView" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:text="Tejas Panchal"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="C.E."
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Developer 2 - Mihir -->
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="C.E."
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-            </LinearLayout>
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    app:layout_column="1"
+                    app:layout_row="0">
 
-            <!-- Developer 2 - Mihir -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                app:layout_column="1"
-                app:layout_row="0">
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="134dp"
+                        android:layout_height="130dp"
+                        android:contentDescription="Mihir"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/mihir"
+                        app:shapeAppearanceOverlay="@style/CircleImageView"/>
 
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:layout_width="118dp"
-                    android:layout_height="130dp"
-                    android:contentDescription="Mihir"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/mihir"
-                    app:shapeAppearanceOverlay="@style/CircleImageView" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="Mihir Patel"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-                <TextView
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="C.E."
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:textColor="@color/black" />
+                </LinearLayout>
+
+                <!-- Developer 3 - Deep -->
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:text="Mihir Patel"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    app:layout_column="0"
+                    app:layout_row="1">
 
-                <TextView
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="134dp"
+                        android:layout_height="130dp"
+                        android:contentDescription="Deep"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/deep"
+                        app:shapeAppearanceOverlay="@style/CircleImageView" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:text="Deep Patel"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="I.T."
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Developer 4 - Margi -->
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="C.E."
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    tools:textColor="@color/white" />
-            </LinearLayout>
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    app:layout_column="1"
+                    app:layout_row="1">
 
-            <!-- Developer 3 - Deep -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                app:layout_column="0"
-                app:layout_row="1">
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="134dp"
+                        android:layout_height="130dp"
+                        android:contentDescription="Margi"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/margi"
+                        app:shapeAppearanceOverlay="@style/CircleImageView" />
 
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:layout_width="115dp"
-                    android:layout_height="130dp"
-                    android:contentDescription="Deep"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:text="Margi Suthar"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/deep"
-                    app:shapeAppearanceOverlay="@style/CircleImageView" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="I.T."
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
-                <TextView
+                <!-- Developer 5 - Bushra -->
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:text="Deep Patel"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                     />
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    app:layout_column="0"
+                    app:layout_columnSpan="2"
+                    app:layout_row="2">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="I.T."
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-            </LinearLayout>
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="134dp"
+                        android:layout_height="130dp"
+                        android:contentDescription="Bushra"
+                        android:scaleType="centerCrop"
+                        android:scrollbarFadeDuration="400"
+                        android:src="@drawable/bushra"
+                        app:shapeAppearanceOverlay="@style/CircleImageView"
+                        tools:srcCompat="@tools:sample/avatars" />
 
-            <!-- Developer 4 - Margi -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                app:layout_column="1"
-                app:layout_row="1">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:text="Bushra Patel"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:layout_width="132dp"
-                    android:layout_height="130dp"
-                    android:contentDescription="Margi"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/margi"
-                    app:shapeAppearanceOverlay="@style/CircleImageView" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="I.T."
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:text="Margi Suthar"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="I.T."
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-            </LinearLayout>
+            </androidx.gridlayout.widget.GridLayout>
 
-            <!-- Developer 5 - Bushra -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                app:layout_column="0"
-                app:layout_columnSpan="2"
-                app:layout_row="2">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="156dp"
-                    android:contentDescription="Bushra"
-                    android:scaleType="centerCrop"
-                    android:scrollbarFadeDuration="400"
-                    android:src="@drawable/bushra"
-                    app:shapeAppearanceOverlay="@style/CircleImageView"
-                    tools:srcCompat="@tools:sample/avatars" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:text="Bushra Patel"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                     />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="I.T."
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-        </androidx.gridlayout.widget.GridLayout>
-
+        </LinearLayout>
     </LinearLayout>
-</ScrollView>
+
+    <!-- Navigation Drawer -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigationView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:menu="@menu/drawer_menu"
+        app:headerLayout="@layout/drawer_header" />
+</androidx.drawerlayout.widget.DrawerLayout>
